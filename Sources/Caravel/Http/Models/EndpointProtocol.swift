@@ -21,7 +21,7 @@ Queries and Headers are empty by default
 */
 public extension EndpointProtocol {
     
-    var baseURL: String { "https://api.unsplash.com/" }
+    var baseURL: String { "" }
     
     var headers: [String: String] { [ : ] }
     var queries: [String: String] { [ : ] }
