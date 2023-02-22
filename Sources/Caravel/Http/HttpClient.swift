@@ -19,7 +19,7 @@ public class HttpClient: HttpClientProtocol {
     
     private init() {}
     
-    func sendRequest<T>(
+    public func sendRequest<T>(
         endpoint: EndpointProtocol
     ) async -> Result<T, RequestError> where T : Decodable {
         
