@@ -15,7 +15,7 @@ public protocol HttpClientProtocol {
 
 public class HttpClient: HttpClientProtocol {
     
-    let instance = HttpClient()
+    public static let instance = HttpClient()
     
     private init() {}
     
