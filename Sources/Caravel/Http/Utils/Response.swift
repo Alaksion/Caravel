@@ -7,4 +7,4 @@
 
 import Foundation
 
-typealias Response<T> = Result<T, RequestError>
+public typealias Response<T> = Result<T, RequestError>
