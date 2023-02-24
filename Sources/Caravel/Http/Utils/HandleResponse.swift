@@ -18,4 +18,3 @@ public func handleResponse<R, D>(
         return .failure(error)
     }
 }
-

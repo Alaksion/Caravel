@@ -1,42 +1,28 @@
 //
-//  HttpClient.swift
-//  Imagefy
+//  File.swift
+//  
 //
-//  Created by Lucca Beurmann on 09/07/22.
+//  Created by Lucca Beurmann on 24/02/23.
 //
 
 import Foundation
 
-@available(*, deprecated, message: "Use CaravelClientInstead")
-public protocol HttpClientProtocol {
-    func sendRequest<T: Decodable>(
-        endpoint: EndpointProtocol
-    ) async -> Result<T, RequestError>
+public protocol CaravelClientProtocol {
+    
+    func sendRequest<T: Decodable>(data: EndpointProtocol) async throws -> T
+    
 }
 
-@available(*, deprecated, message: "Use CaravelClientInstead")
-public class HttpClient: HttpClientProtocol {
+public class CaravelClient: CaravelClientProtocol {
     
-    public static let instance = HttpClient()
+    public static let instance = CaravelClient()
     
-    private init() {}
+    private init() { }
     
-    public func sendRequest<T>(
-        endpoint: EndpointProtocol
-    ) async -> Result<T, RequestError> where T : Decodable {
-        
-        do {
-            let urlComponent = try buildUrlComponent(from: endpoint)
-            let request = try buildUrlRequest(from: endpoint, with: urlComponent)
-            return try await .success(doRequest(request: request))
-            
-        } catch let exception {
-            if let requestError = exception as? RequestError {
-                return .failure(requestError)
-            }
-            return .failure(RequestError.unknown)
-        }
-        
+    public func sendRequest<T>(data: EndpointProtocol) async throws -> T where T : Decodable {
+        let urlComponent = try buildUrlComponent(from: data)
+        let request = try buildUrlRequest(from: data, with: urlComponent)
+        return try await doRequest(request: request)
     }
     
     private func buildUrlComponent(from endpoint: EndpointProtocol) throws -> URLComponents {
@@ -92,4 +78,8 @@ public class HttpClient: HttpClientProtocol {
         }
     }
     
+    
+    
 }
+
+
